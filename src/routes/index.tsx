@@ -25,7 +25,7 @@ function Reveal({ children, className = "" }: { children: ReactNode; className?:
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current; if (!el) return;
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("is-visible"); io.disconnect(); } }, { threshold: 0.15 });
+    const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) { el.classList.add("is-visible"); io.disconnect(); } }, { threshold: 0.15 });
     io.observe(el); return () => io.disconnect();
   }, []);
   return <div ref={ref} className={`reveal ${className}`}>{children}</div>;
@@ -128,7 +128,7 @@ function Steps() {
     <Section className="bg-ink text-ink-foreground">
       <Reveal className="text-center"><H2>Simples e <span className="text-primary">direto</span></H2></Reveal>
       <div className="mt-10 grid gap-4 md:grid-cols-4">
-        {C.steps.map((s, i) => { const I = icons[i % icons.length]; return (
+        {C.steps.map((s, i) => { const I = icons[i % icons.length]!; return (
           <Reveal key={s.title}><div className="h-full rounded-2xl border border-ink-foreground/15 p-6">
             <div className="flex items-center justify-between"><I className="h-7 w-7 text-primary" /><span className="font-display text-4xl font-black text-ink-foreground/20">{i + 1}</span></div>
             <h3 className="mt-4 font-display text-lg font-extrabold">{s.title}</h3>
@@ -318,7 +318,7 @@ function StickyCta() {
   const [hide, setHide] = useState(false);
   useEffect(() => {
     const el = document.getElementById("planos"); if (!el) return;
-    const io = new IntersectionObserver(([e]) => setHide(e.isIntersecting), { threshold: 0.1 });
+    const io = new IntersectionObserver(([e]) => setHide(!!e?.isIntersecting), { threshold: 0.1 });
     io.observe(el); return () => io.disconnect();
   }, []);
   return (
