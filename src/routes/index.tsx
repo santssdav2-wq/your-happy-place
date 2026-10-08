@@ -18,6 +18,14 @@ import * as C from "@/components/landing/content";
 import heroImg from "@/assets/hero-mockup.jpg";
 import videoThumb from "@/assets/video-thumb.jpg";
 import collection from "@/assets/collection.jpg";
+import catLeggings from "@/assets/leggings.png";
+import catTops from "@/assets/tops.png";
+import catShorts from "@/assets/shorts.png";
+import catCroppeds from "@/assets/croppeds.png";
+import catConjuntos from "@/assets/conjuntos.png";
+import catRegatas from "@/assets/regatas.png";
+import catFeminino from "@/assets/feminino.png";
+import catMasculino from "@/assets/masculino.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -329,6 +337,16 @@ function Steps() {
 }
 
 function Categories() {
+  const catImages: Record<string, string> = {
+    Leggings: catLeggings,
+    Tops: catTops,
+    Shorts: catShorts,
+    Croppeds: catCroppeds,
+    Conjuntos: catConjuntos,
+    Regatas: catRegatas,
+    Feminino: catFeminino,
+    Masculino: catMasculino,
+  };
   return (
     <Section>
       <Reveal className="text-center">
@@ -336,22 +354,16 @@ function Categories() {
         <H2>Uma coleção para você nunca ficar sem ideias</H2>
       </Reveal>
       <div className="no-scrollbar -mx-5 mt-10 flex snap-x gap-4 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-4 md:px-0">
-        {C.categories.map((c, i) => (
+        {C.categories.map((c) => (
           <div
             key={c}
             className="relative w-56 shrink-0 snap-start overflow-hidden rounded-2xl bg-secondary md:w-auto"
           >
             <img
-              src={collection}
+              src={catImages[c]}
               alt={c}
               loading="lazy"
-              width={1280}
-              height={896}
               className="aspect-[4/5] w-full object-cover"
-              style={{
-                objectPosition: `${(i % 4) * 33}% ${i < 4 ? 15 : 85}%`,
-                transform: "scale(1.6)",
-              }}
             />
             <span className="absolute bottom-3 left-3 rounded-full bg-ink px-3 py-1 text-xs font-bold text-primary">
               {c}
