@@ -19,14 +19,6 @@ export const hero = {
 
 export const cta = "QUERO OS MOLDES";
 
-export const benefits = [
-  "Acesso imediato",
-  "Biblioteca organizada",
-  "Diversos modelos",
-  "Material digital",
-  "Para uso próprio e profissional",
-];
-
 export const contents = [
   { title: "Leggings", text: "Diferentes estilos e cortes, do essencial ao mais elaborado." },
   { title: "Tops fitness", text: "Modelos para cada tipo de apoio e cada estilo de produção." },
@@ -124,7 +116,16 @@ export const plans = [
     featured: true,
     cta: "QUERO O PLANO COMPLETO",
     href: CHECKOUT_COMPLETO,
-    items: ["Tudo do Essencial", "Todos os 4 bônus", "Acesso completo à biblioteca"],
+    items: [
+      "Tudo do Plano Essencial",
+      "Todos os 4 bônus extras",
+      "Biblioteca principal completa",
+      "Modelagens femininas e masculinas",
+      "Conjuntos prontos para produzir",
+      "Acesso imediato",
+      "Material digital para imprimir",
+      "Uso profissional liberado",
+    ],
     excluded: [] as string[],
   },
 ];

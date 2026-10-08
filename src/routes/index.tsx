@@ -215,19 +215,6 @@ function Hero() {
           {C.hero.trust}
         </p>
       </div>
-      <div className="no-scrollbar -mx-5 mt-10 flex snap-x gap-3 overflow-x-auto px-5 md:justify-center">
-        {C.benefits.map((b) => (
-          <div
-            key={b}
-            className="flex shrink-0 snap-start items-center gap-2 rounded-2xl border border-border bg-card px-4 py-3 text-sm font-semibold shadow-sm"
-          >
-            <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary">
-              <Check className="h-3.5 w-3.5" />
-            </span>
-            {b}
-          </div>
-        ))}
-      </div>
     </Section>
   );
 }
@@ -238,10 +225,6 @@ function ProductContents() {
       <Reveal className="text-center">
         <Eyebrow>Incluído no acesso</Eyebrow>
         <H2>Tudo o que você recebe</H2>
-        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-          Uma biblioteca com modelos de moda fitness separados por categoria, para você escolher o
-          que produzir a cada projeto.
-        </p>
       </Reveal>
       <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
         {C.contents.map((c, i) => (
