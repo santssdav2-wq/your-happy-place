@@ -183,9 +183,6 @@ function Hero() {
           </span>{" "}
           <span className="block text-muted-foreground md:mt-2">{C.hero.rest}</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-          {C.hero.sub}
-        </p>
       </div>
       <div className="relative mx-auto mt-10 max-w-4xl">
         <img

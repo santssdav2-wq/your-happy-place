@@ -11,7 +11,6 @@ export const topBar = "ACESSO IMEDIATO • MATERIAL DIGITAL • BIBLIOTECA DE MO
 export const hero = {
   highlight: "+500 Moldes de Moda Fitness",
   rest: "em uma única biblioteca",
-  sub: "Leggings, tops, shorts, conjuntos, croppeds, regatas e muito mais, organizados em um só lugar. Escolha o modelo que precisa e comece a produzir sem criar cada modelagem do zero.",
   cta: "QUERO ACESSAR OS MOLDES",
   trust: "Pagamento seguro • Acesso digital • Material organizado por categoria",
   tags: ["Leggings", "Tops", "Shorts", "Conjuntos", "Croppeds", "Regatas"],
