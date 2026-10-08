@@ -1,8 +1,8 @@
 // Todos os textos, preços, categorias, bônus e depoimentos da página ficam aqui.
 // Troque as URLs abaixo pelas URLs reais dos checkouts. Enquanto forem "#", os botões não navegam.
-export const CHECKOUT_ESSENCIAL = "#";
-export const CHECKOUT_COMPLETO = "#";
-export const CHECKOUT_UPGRADE = "#"; // Upgrade do Essencial para o Completo (popup) — R$ 17,90
+export const CHECKOUT_ESSENCIAL = "https://pay.cakto.com.br/x8vdtka_1180303";
+export const CHECKOUT_COMPLETO = "https://pay.cakto.com.br/eicyqz6";
+export const CHECKOUT_UPGRADE = "https://pay.cakto.com.br/wrogf75"; // Upgrade do Essencial para o Completo (popup) — R$ 17,90
 
 export const brand = "Moldes Fitness";
 
