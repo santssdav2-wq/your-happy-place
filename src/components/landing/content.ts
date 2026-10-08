@@ -110,12 +110,7 @@ export const plans = [
     featured: false,
     cta: "QUERO COMEÇAR",
     href: CHECKOUT_ESSENCIAL,
-    items: [
-      "Acesso à biblioteca principal",
-      "Moldes do plano essencial",
-      "Acesso imediato",
-      "Material digital",
-    ],
+    items: ["Material principal", "Biblioteca principal", "Acesso imediato", "Material digital"],
     excluded: [
       "Coleção de Moldes Extras",
       "Modelos Fitness em Destaque",
@@ -127,29 +122,27 @@ export const plans = [
     name: "Plano Completo",
     price: "29,90",
     featured: true,
-    cta: "QUERO O COMPLETO",
+    cta: "QUERO O PLANO COMPLETO",
     href: CHECKOUT_COMPLETO,
-    items: [
-      "Biblioteca principal completa",
-      "Todos os 4 bônus extras",
-      "Acesso completo à biblioteca",
-      "Acesso imediato",
-      "Material digital",
-    ],
+    items: ["Tudo do Essencial", "Todos os 4 bônus", "Acesso completo à biblioteca"],
     excluded: [] as string[],
   },
 ];
 
 export const planComparison =
-  "Por apenas R$ 19,90 a mais, você leva o Plano Completo: biblioteca completa + todos os bônus por R$ 29,90.";
+  "Por apenas R$ 19,90 a mais, você leva o Plano Completo com todos os bônus.";
+
+export const offerLine =
+  "De R$ {bonusesTotal} em bônus inclusos no Plano Completo, por apenas R$ {price}.";
 
 export const upgrade = {
+  badge: "ÚLTIMA CHANCE",
+  title: "Leve o Plano Completo por apenas",
   price: "17,90",
-  title: "Você está escolhendo o plano essencial...",
-  intro: "Mas ainda dá para levar tudo do Plano Completo por apenas:",
-  items: ["Biblioteca completa", "Todos os 4 bônus extras", "Acesso completo à biblioteca"],
-  cta: "SIM, QUERO O PLANO COMPLETO POR R$ 17,90",
-  decline: "Não, prefiro continuar com o plano essencial",
+  note: "Pagamento único • Bônus inclusos",
+  items: ["Biblioteca completa", "Todos os 4 bônus"],
+  cta: "SIM, QUERO O PLANO COMPLETO",
+  decline: "Não, continuar com o Essencial",
 };
 
 export const guarantee =

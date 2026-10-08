@@ -80,13 +80,16 @@ const CtaButton = ({
   children,
   href = "#planos",
   className = "",
+  purchaseCta = false,
 }: {
   children: ReactNode;
   href?: string;
   className?: string;
+  purchaseCta?: boolean;
 }) => (
   <a
     href={href}
+    data-purchase-cta={purchaseCta || undefined}
     className={`inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-center font-display text-sm font-extrabold tracking-wide text-primary-foreground shadow-[0_10px_30px_-8px_var(--primary)] transition hover:-translate-y-0.5 sm:text-base ${className}`}
   >
     {children}
@@ -98,20 +101,29 @@ const CheckoutButton = ({
   onClick,
   children,
   className = "",
+  outline = false,
+  purchaseCta = false,
 }: {
   url: string;
   onClick?: (e: MouseEvent) => void;
   children: ReactNode;
   className?: string;
+  outline?: boolean;
+  purchaseCta?: boolean;
 }) => (
   <a
     href={url}
+    data-purchase-cta={purchaseCta || undefined}
     onClick={(e) => {
       e.preventDefault();
       if (onClick) onClick(e);
       else navigate(url);
     }}
-    className={`inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-center font-display text-sm font-extrabold tracking-wide text-primary-foreground shadow-[0_10px_30px_-8px_var(--primary)] transition hover:-translate-y-0.5 sm:text-base ${className}`}
+    className={`inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-center font-display text-sm font-extrabold tracking-wide transition hover:-translate-y-0.5 sm:text-base ${
+      outline
+        ? "border-2 border-ink/15 bg-transparent text-foreground hover:border-ink"
+        : "bg-primary text-primary-foreground shadow-[0_10px_30px_-8px_var(--primary)]"
+    } ${className}`}
   >
     {children}
   </a>
@@ -164,7 +176,7 @@ function Hero() {
         <div className="mb-6 font-display text-sm font-extrabold uppercase tracking-[0.3em]">
           {C.brand}
         </div>
-        <h1 className="mx-auto max-w-4xl font-display text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl md:text-7xl">
+        <h1 className="mx-auto max-w-4xl font-display text-[2rem] font-black leading-[1.1] tracking-tight md:text-7xl">
           <span className="relative inline-block">
             <span className="relative z-10">{C.hero.highlight}</span>
             <span className="absolute inset-x-0 bottom-1 -z-0 h-4 bg-primary md:h-6" />
@@ -183,7 +195,7 @@ function Hero() {
           height={960}
           className="w-full rounded-3xl shadow-2xl"
         />
-        <div className="absolute -bottom-5 left-1/2 flex w-[calc(100%-1rem)] -translate-x-1/2 flex-wrap justify-center gap-2">
+        <div className="absolute -bottom-6 left-1/2 flex w-[calc(100%-0.5rem)] -translate-x-1/2 flex-wrap justify-center gap-1.5">
           {C.hero.tags.map((t) => (
             <span
               key={t}
@@ -194,8 +206,10 @@ function Hero() {
           ))}
         </div>
       </div>
-      <div className="mt-14 text-center">
-        <CtaButton className="w-full max-w-md md:w-auto">{C.hero.cta}</CtaButton>
+      <div className="mt-16 text-center">
+        <CtaButton purchaseCta className="w-full max-w-md md:w-auto">
+          {C.hero.cta}
+        </CtaButton>
         <p className="mt-4 flex flex-wrap items-center justify-center gap-2 text-center text-sm text-muted-foreground">
           <Lock className="h-4 w-4 shrink-0" />
           {C.hero.trust}
@@ -372,7 +386,9 @@ function Categories() {
         ))}
       </div>
       <div className="mt-10 text-center">
-        <CtaButton className="w-full max-w-md md:w-auto">{C.cta}</CtaButton>
+        <CtaButton purchaseCta className="w-full max-w-md md:w-auto">
+          {C.cta}
+        </CtaButton>
       </div>
     </Section>
   );
@@ -459,80 +475,77 @@ function Bonuses() {
 
 function Pricing({ onEssencial }: { onEssencial: () => void }) {
   const [essencial, completo] = [C.plans[0]!, C.plans[1]!];
+  const offerLine = C.offerLine
+    .replace("{bonusesTotal}", C.bonusesTotal)
+    .replace("{price}", completo.price);
   return (
     <Section id="planos">
       <Reveal className="text-center">
         <Eyebrow>Oferta</Eyebrow>
         <H2>Escolha como você quer começar</H2>
-        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-          Comece apenas com a biblioteca principal ou leve tudo, com os bônus inclusos.
+        <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
+          {offerLine}
+        </p>
+        <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
+          Dois planos simples: o Completo leva a biblioteca inteira e todos os bônus.
         </p>
       </Reveal>
 
-      <Reveal className="mx-auto mt-8 max-w-md rounded-3xl border-2 border-primary bg-card p-6 text-center shadow-lg">
-        <span className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-widest text-primary-foreground">
-          <Gift className="h-3.5 w-3.5" />+ 4 bônus extras
-        </span>
-        <p className="mt-4 text-sm text-muted-foreground">Valor dos bônus</p>
-        <p className="font-display text-2xl font-black text-muted-foreground line-through">
-          R$ {C.bonusesTotal}
-        </p>
-        <p className="text-sm font-bold">Incluídos no Plano Completo</p>
-        <div className="my-4 h-px bg-border" />
-        <p className="font-display text-xs font-black uppercase tracking-widest text-muted-foreground">
-          De R$ {C.bonusesTotal} em bônus, por apenas
-        </p>
-        <p className="font-display text-5xl font-black leading-none sm:text-6xl">
-          R$ {completo.price}
-        </p>
-        <p className="mt-2 text-xs text-muted-foreground">Plano Completo • Pagamento único</p>
-      </Reveal>
-
-      <div className="mx-auto mt-10 grid max-w-4xl items-stretch gap-6 md:grid-cols-2">
-        <div className="relative flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-md sm:p-7">
-          <h3 className="font-display text-xl font-extrabold uppercase">{essencial.name}</h3>
+      <div className="mx-auto mt-10 grid max-w-4xl items-stretch gap-5 md:grid-cols-2">
+        <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-md sm:p-7">
+          <h3 className="font-display text-base font-extrabold uppercase sm:text-lg">
+            {essencial.name}
+          </h3>
           <ul className="mt-5 space-y-3">
             {essencial.items.map((it) => (
               <li key={it} className="flex items-start gap-3 text-sm">
-                <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+                <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-secondary text-accent">
                   <Check className="h-3 w-3" />
                 </span>
                 {it}
               </li>
             ))}
           </ul>
-          <div className="mt-6 border-t border-border pt-5">
-            <p className="font-display text-xs font-black uppercase tracking-widest text-muted-foreground">
-              No Essencial, você não recebe:
+
+          <div className="mt-auto pt-8">
+            <div className="flex items-baseline gap-1.5 font-display whitespace-nowrap">
+              <span className="text-lg font-bold">R$</span>
+              <span className="text-5xl font-black">{essencial.price}</span>
+              <span className="text-xs font-medium text-muted-foreground">Pagamento único</span>
+            </div>
+            <CheckoutButton
+              url={essencial.href}
+              onClick={onEssencial}
+              outline
+              purchaseCta
+              className="mt-5 w-full"
+            >
+              {essencial.cta}
+            </CheckoutButton>
+          </div>
+
+          <div className="mt-6 border-t border-border pt-4">
+            <p className="font-display text-[0.65rem] font-extrabold uppercase tracking-widest text-muted-foreground">
+              Não inclui
             </p>
-            <ul className="mt-3 space-y-2">
+            <ul className="mt-2 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
               {essencial.excluded.map((it) => (
-                <li key={it} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <X className="mt-0.5 h-4 w-4 shrink-0" />
-                  <span className="line-through">{it}</span>
+                <li key={it} className="flex items-start gap-1.5 text-xs text-muted-foreground">
+                  <X className="mt-0.5 h-3 w-3 shrink-0" />
+                  <span className="line-through opacity-80">{it}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="mt-auto pt-6">
-            <div className="flex items-start gap-1 font-display whitespace-nowrap">
-              <span className="mt-2 text-lg font-bold">R$</span>
-              <span className="text-5xl font-black sm:text-6xl">{essencial.price}</span>
-            </div>
-            <p className="text-xs text-muted-foreground">Pagamento único</p>
-            <CheckoutButton url={essencial.href} onClick={onEssencial} className="mt-5 w-full">
-              {essencial.cta}
-            </CheckoutButton>
-          </div>
         </div>
 
-        <div
-          className={`relative flex h-full flex-col rounded-3xl p-6 sm:p-7 ${completo.featured ? "bg-ink text-ink-foreground shadow-2xl md:scale-105" : "border border-border bg-card shadow-md"}`}
-        >
+        <div className="relative flex h-full flex-col rounded-3xl bg-ink p-6 text-ink-foreground shadow-2xl sm:p-7 md:scale-105">
           <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-4 py-1 text-xs font-black text-primary-foreground">
             MAIS ESCOLHIDO
           </span>
-          <h3 className="font-display text-xl font-extrabold uppercase">{completo.name}</h3>
+          <h3 className="font-display text-base font-extrabold uppercase sm:text-lg">
+            {completo.name}
+          </h3>
           <ul className="mt-5 space-y-3">
             {completo.items.map((it) => (
               <li key={it} className="flex items-start gap-3 text-sm">
@@ -543,30 +556,30 @@ function Pricing({ onEssencial }: { onEssencial: () => void }) {
               </li>
             ))}
           </ul>
-          <div className="mt-auto pt-6">
-            <p className="text-xs text-ink-foreground/60">Valor individual dos bônus:</p>
-            <p className="font-display text-sm font-bold text-ink-foreground/60 line-through">
-              R$ {C.bonusesTotal}
+
+          <div className="mt-auto pt-8">
+            <p className="text-xs text-ink-foreground/60">
+              Valor dos bônus: <span className="line-through">R$ {C.bonusesTotal}</span>
             </p>
             <p className="mt-3 font-display text-xs font-black uppercase tracking-widest text-primary">
               Por apenas
             </p>
-            <div className="flex items-start gap-1 font-display whitespace-nowrap">
-              <span className="mt-2 text-lg font-bold">R$</span>
+            <div className="flex items-baseline gap-1.5 font-display whitespace-nowrap">
+              <span className="text-lg font-bold">R$</span>
               <span className="text-6xl font-black leading-none sm:text-7xl">{completo.price}</span>
             </div>
-            <p className="text-xs text-ink-foreground/60">Pagamento único</p>
-            <CheckoutButton url={completo.href} className="mt-5 w-full">
+            <p className="mt-1 text-xs text-ink-foreground/60">Pagamento único</p>
+            <CheckoutButton url={completo.href} purchaseCta className="mt-5 w-full">
               {completo.cta}
             </CheckoutButton>
           </div>
         </div>
       </div>
 
-      <p className="mx-auto mt-8 max-w-2xl rounded-2xl bg-secondary px-5 py-4 text-center text-sm font-semibold sm:text-base">
+      <p className="mx-auto mt-8 max-w-2xl text-center text-sm font-semibold text-muted-foreground sm:text-base">
         {C.planComparison}
       </p>
-      <p className="mt-6 flex flex-wrap items-center justify-center gap-2 text-center text-sm text-muted-foreground">
+      <p className="mt-5 flex flex-wrap items-center justify-center gap-2 text-center text-sm text-muted-foreground">
         <Shield className="h-4 w-4 shrink-0" />
         Compra segura • Acesso digital • Pagamento único
       </p>
@@ -601,11 +614,11 @@ function UpgradeModal({ open, onClose }: { open: boolean; onClose: () => void })
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-3xl bg-card p-6 text-center shadow-2xl sm:p-8"
+        className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-3xl bg-card p-6 text-center shadow-2xl sm:p-7"
       >
         <div className="flex items-start justify-between gap-4">
-          <span className="inline-block rounded-full bg-ink px-3 py-1 text-xs font-black uppercase tracking-widest text-primary">
-            Espere
+          <span className="inline-block rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-widest text-primary-foreground">
+            {C.upgrade.badge}
           </span>
           <button
             onClick={onClose}
@@ -615,16 +628,13 @@ function UpgradeModal({ open, onClose }: { open: boolean; onClose: () => void })
             <X className="h-4 w-4" />
           </button>
         </div>
-        <h2 className="mt-4 font-display text-2xl font-black leading-tight sm:text-3xl">
+        <h2 className="mt-4 font-display text-xl font-black leading-tight sm:text-2xl">
           {C.upgrade.title}
         </h2>
-        <p className="mt-3 text-sm text-muted-foreground sm:text-base">{C.upgrade.intro}</p>
-        <p className="mt-4 font-display text-5xl font-black leading-none sm:text-6xl">
+        <p className="mt-1 font-display text-5xl font-black leading-none text-primary sm:text-6xl">
           R$ {C.upgrade.price}
         </p>
-        <p className="mt-2 text-xs text-muted-foreground">
-          Pagamento único, com todos os bônus inclusos
-        </p>
+        <p className="mt-2 text-xs text-muted-foreground">{C.upgrade.note}</p>
         <ul className="mt-5 space-y-2 text-left">
           {C.upgrade.items.map((it) => (
             <li key={it} className="flex items-start gap-3 text-sm">
@@ -638,6 +648,7 @@ function UpgradeModal({ open, onClose }: { open: boolean; onClose: () => void })
         <CheckoutButton
           url={C.CHECKOUT_UPGRADE}
           onClick={() => navigate(C.CHECKOUT_UPGRADE)}
+          purchaseCta
           className="mt-6 w-full"
         >
           {C.upgrade.cta}
@@ -722,7 +733,9 @@ function FinalCTA() {
           +500 modelos organizados em um só lugar, para você criar novas peças sem começar tudo do
           zero.
         </p>
-        <CtaButton className="mt-8 w-full max-w-md md:w-auto">{C.cta}</CtaButton>
+        <CtaButton purchaseCta className="mt-8 w-full max-w-md md:w-auto">
+          {C.cta}
+        </CtaButton>
       </Reveal>
     </Section>
   );
@@ -747,19 +760,36 @@ function Footer() {
 }
 
 function StickyCta() {
-  const [hide, setHide] = useState(false);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const el = document.getElementById("planos");
-    if (!el) return;
-    const io = new IntersectionObserver(([e]) => setHide(!!e?.isIntersecting), { threshold: 0.1 });
-    io.observe(el);
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-purchase-cta]"));
+    if (targets.length === 0) {
+      setVisible(true);
+      return;
+    }
+    let anyVisible = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            anyVisible = true;
+            break;
+          }
+        }
+        setVisible(!anyVisible);
+      },
+      { threshold: 0.5 },
+    );
+    targets.forEach((t) => io.observe(t));
     return () => io.disconnect();
   }, []);
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-50 p-3 transition md:hidden ${hide ? "pointer-events-none translate-y-full opacity-0" : ""}`}
+      className={`fixed inset-x-0 bottom-0 z-50 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] transition md:hidden ${visible ? "" : "pointer-events-none translate-y-full opacity-0"}`}
     >
-      <CtaButton className="w-full">{C.cta}</CtaButton>
+      <CtaButton href="#planos" className="w-full">
+        {C.cta}
+      </CtaButton>
     </div>
   );
 }
