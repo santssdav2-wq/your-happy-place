@@ -249,11 +249,11 @@ function ProductContents() {
       </Reveal>
       <Reveal className="mt-10">
         <div className="overflow-hidden py-2">
-          <div className="flex w-max animate-marquee gap-4">
+          <div className="flex w-max animate-marquee">
             {[...carouselSlides, ...carouselSlides].map((s, i) => (
               <div
                 key={`${s.label}-${i}`}
-                className="relative w-56 shrink-0 overflow-hidden rounded-2xl bg-secondary sm:w-64"
+                className="relative w-56 shrink-0 overflow-hidden rounded-2xl bg-secondary pr-4 sm:w-64"
               >
                 <img
                   src={s.img}
