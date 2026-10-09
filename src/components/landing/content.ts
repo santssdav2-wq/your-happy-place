@@ -18,17 +18,6 @@ export const hero = {
 
 export const cta = "QUERO OS MOLDES";
 
-export const contents = [
-  { title: "Leggings", text: "Diferentes estilos e cortes, do essencial ao mais elaborado." },
-  { title: "Tops fitness", text: "Modelos para cada tipo de apoio e cada estilo de produção." },
-  { title: "Shorts", text: "Opções femininas e masculinas para completar o catálogo." },
-  { title: "Conjuntos", text: "Peças que já se combinam entre si para criar looks completos." },
-  { title: "Croppeds", text: "Modelos curtos que acompanham as tendências da moda fitness." },
-  { title: "Regatas", text: "Opções simples para diferentes públicos e estilos." },
-  { title: "Modelagens femininas", text: "Uma ampla seleção focada no público feminino." },
-  { title: "Modelagens masculinas", text: "Modelos masculinos para quem quer variar ainda mais." },
-];
-
 export const steps = [
   { title: "Escolha o modelo", text: "Navegue pela biblioteca e encontre o modelo que procura." },
   {

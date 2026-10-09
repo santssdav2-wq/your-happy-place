@@ -27,6 +27,17 @@ import catRegatas from "@/assets/regatas.webp";
 import catFeminino from "@/assets/feminino.webp";
 import catMasculino from "@/assets/masculino.webp";
 
+const catImages: Record<string, string> = {
+  Leggings: catLeggings,
+  Tops: catTops,
+  Shorts: catShorts,
+  Croppeds: catCroppeds,
+  Conjuntos: catConjuntos,
+  Regatas: catRegatas,
+  Feminino: catFeminino,
+  Masculino: catMasculino,
+};
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -223,22 +234,32 @@ function ProductContents() {
         <Eyebrow>Incluído no acesso</Eyebrow>
         <H2>Tudo o que você recebe</H2>
       </Reveal>
-      <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
-        {C.contents.map((c, i) => (
-          <Reveal key={c.title}>
-            <div className="h-full rounded-2xl border border-border bg-card p-4 shadow-sm transition hover:shadow-lg sm:p-5">
-              <span className="font-display text-sm font-black text-accent">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-2 font-display text-base font-extrabold uppercase leading-tight sm:text-lg">
-                {c.title}
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">{c.text}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-      <Reveal className="mt-8">
+      <Reveal className="mt-10">
+        <div className="overflow-hidden py-2">
+          <div className="flex w-max animate-marquee gap-4">
+            {[...C.categories, ...C.categories].map((c, i) => (
+              <div
+                key={`${c}-${i}`}
+                className="relative w-56 shrink-0 overflow-hidden rounded-2xl bg-secondary sm:w-64"
+              >
+                <img
+                  src={catImages[c]}
+                  alt={c}
+                  loading="lazy"
+                  decoding="async"
+                  width={720}
+                  height={900}
+                  className="aspect-[4/5] w-full object-cover"
+                />
+                <span className="absolute bottom-3 left-3 rounded-full bg-ink px-3 py-1 text-xs font-bold text-primary">
+                  {c}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+      <Reveal className="mt-10">
         <img
           src={collection}
           alt="Miniaturas das peças da coleção de moldes fitness"
@@ -331,16 +352,6 @@ function Steps() {
 }
 
 function Categories() {
-  const catImages: Record<string, string> = {
-    Leggings: catLeggings,
-    Tops: catTops,
-    Shorts: catShorts,
-    Croppeds: catCroppeds,
-    Conjuntos: catConjuntos,
-    Regatas: catRegatas,
-    Feminino: catFeminino,
-    Masculino: catMasculino,
-  };
   return (
     <Section>
       <Reveal className="text-center">
