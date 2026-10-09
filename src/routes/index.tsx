@@ -26,6 +26,7 @@ import catConjuntos from "@/assets/conjuntos.webp";
 import catRegatas from "@/assets/regatas.webp";
 import catFeminino from "@/assets/feminino.webp";
 import catMasculino from "@/assets/masculino.webp";
+import catMasculinoVariant from "@/assets/masculino-variante.webp";
 
 const catImages: Record<string, string> = {
   Leggings: catLeggings,
@@ -37,6 +38,18 @@ const catImages: Record<string, string> = {
   Feminino: catFeminino,
   Masculino: catMasculino,
 };
+
+const carouselSlides = [
+  { label: "Leggings", img: catLeggings },
+  { label: "Tops", img: catTops },
+  { label: "Shorts", img: catShorts },
+  { label: "Conjuntos", img: catConjuntos },
+  { label: "Croppeds", img: catCroppeds },
+  { label: "Regatas", img: catRegatas },
+  { label: "Modelagens Femininas", img: catFeminino },
+  { label: "Modelagens Masculinas", img: catMasculino },
+  { label: "Mais Modelos Masculinos", img: catMasculinoVariant },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -237,14 +250,14 @@ function ProductContents() {
       <Reveal className="mt-10">
         <div className="overflow-hidden py-2">
           <div className="flex w-max animate-marquee gap-4">
-            {[...C.categories, ...C.categories].map((c, i) => (
+            {[...carouselSlides, ...carouselSlides].map((s, i) => (
               <div
-                key={`${c}-${i}`}
+                key={`${s.label}-${i}`}
                 className="relative w-56 shrink-0 overflow-hidden rounded-2xl bg-secondary sm:w-64"
               >
                 <img
-                  src={catImages[c]}
-                  alt={c}
+                  src={s.img}
+                  alt={s.label}
                   loading="lazy"
                   decoding="async"
                   width={720}
@@ -252,7 +265,7 @@ function ProductContents() {
                   className="aspect-[4/5] w-full object-cover"
                 />
                 <span className="absolute bottom-3 left-3 rounded-full bg-ink px-3 py-1 text-xs font-bold text-primary">
-                  {c}
+                  {s.label}
                 </span>
               </div>
             ))}
