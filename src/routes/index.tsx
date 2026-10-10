@@ -27,16 +27,24 @@ import catRegatas from "@/assets/regatas.webp";
 import catFeminino from "@/assets/feminino.webp";
 import catMasculino from "@/assets/masculino.webp";
 import catMasculinoVariant from "@/assets/masculino-variante.webp";
+import varLeggings from "@/assets/cat-leggings.webp";
+import varTops from "@/assets/cat-tops.webp";
+import varShorts from "@/assets/cat-shorts.webp";
+import varCroppeds from "@/assets/cat-croppeds.webp";
+import varConjuntos from "@/assets/cat-conjuntos.webp";
+import varRegatas from "@/assets/cat-regatas.webp";
+import varFeminino from "@/assets/cat-feminino.webp";
+import varMasculino from "@/assets/cat-masculino.webp";
 
-const catImages: Record<string, string> = {
-  Leggings: catLeggings,
-  Tops: catTops,
-  Shorts: catShorts,
-  Croppeds: catCroppeds,
-  Conjuntos: catConjuntos,
-  Regatas: catRegatas,
-  Feminino: catFeminino,
-  Masculino: catMasculino,
+const varImages: Record<string, string> = {
+  Leggings: varLeggings,
+  Tops: varTops,
+  Shorts: varShorts,
+  Croppeds: varCroppeds,
+  Conjuntos: varConjuntos,
+  Regatas: varRegatas,
+  Feminino: varFeminino,
+  Masculino: varMasculino,
 };
 
 const carouselSlides = [
@@ -378,7 +386,7 @@ function Categories() {
             className="relative w-56 shrink-0 snap-start overflow-hidden rounded-2xl bg-secondary md:w-auto"
           >
             <img
-              src={catImages[c]}
+              src={varImages[c]}
               alt={c}
               loading="lazy"
               decoding="async"
