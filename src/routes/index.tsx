@@ -584,7 +584,11 @@ function Pricing({ onEssencial }: { onEssencial: () => void }) {
               <span className="text-6xl font-black leading-none sm:text-7xl">{completo.price}</span>
             </div>
             <p className="mt-1 text-xs text-ink-foreground/60">Pagamento único</p>
-            <CheckoutButton url={completo.href} purchaseCta className="mt-5 w-full">
+            <CheckoutButton
+              url={completo.href}
+              purchaseCta
+              className="animate-pulse-cta mt-5 w-full"
+            >
               {completo.cta}
             </CheckoutButton>
           </div>
@@ -621,7 +625,7 @@ function UpgradeModal({ open, onClose }: { open: boolean; onClose: () => void })
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-end justify-center bg-ink/70 p-3 sm:items-center"
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/70 p-3"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -629,7 +633,7 @@ function UpgradeModal({ open, onClose }: { open: boolean; onClose: () => void })
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-3xl bg-card p-6 text-center shadow-2xl sm:p-7"
+        className="animate-modal-in max-h-[85dvh] w-full max-w-md overflow-y-auto rounded-3xl bg-card p-6 text-center shadow-2xl sm:p-7"
       >
         <div className="flex items-start justify-between gap-4">
           <span className="inline-block rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-widest text-primary-foreground">
@@ -650,7 +654,11 @@ function UpgradeModal({ open, onClose }: { open: boolean; onClose: () => void })
           R$ {C.upgrade.price}
         </p>
         <p className="mt-2 text-xs text-muted-foreground">{C.upgrade.note}</p>
-        <ul className="mt-5 space-y-2 text-left">
+        <p className="mt-3 flex items-start justify-center gap-2 rounded-2xl border border-destructive/30 bg-destructive/10 px-3 py-2.5 text-left text-xs font-semibold sm:text-sm">
+          <Zap className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+          <span>{C.upgrade.urgency}</span>
+        </p>
+        <ul className="mt-4 space-y-2 text-left">
           {C.upgrade.items.map((it) => (
             <li key={it} className="flex items-start gap-3 text-sm">
               <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">

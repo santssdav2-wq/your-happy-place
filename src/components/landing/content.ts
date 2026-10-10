@@ -108,7 +108,6 @@ export const plans = [
       "Tudo do Plano Essencial",
       "Todos os 4 bônus extras",
       "Biblioteca principal completa",
-      "Modelagens femininas e masculinas",
       "Conjuntos prontos para produzir",
       "Acesso imediato",
       "Material digital para imprimir",
@@ -129,7 +128,17 @@ export const upgrade = {
   title: "Leve o Plano Completo por apenas",
   price: "17,90",
   note: "Pagamento único • Bônus inclusos",
-  items: ["Biblioteca completa", "Todos os 4 bônus"],
+  urgency:
+    "Esta condição é exclusiva desta sessão. Se você sair agora, esta oferta não será oferecida novamente.",
+  items: [
+    "Tudo do Plano Essencial",
+    "Todos os 4 bônus extras",
+    "Biblioteca principal completa",
+    "Conjuntos prontos para produzir",
+    "Acesso imediato",
+    "Material digital para imprimir",
+    "Uso profissional liberado",
+  ],
   cta: "SIM, QUERO O PLANO COMPLETO",
   decline: "Não, continuar com o Essencial",
 };
