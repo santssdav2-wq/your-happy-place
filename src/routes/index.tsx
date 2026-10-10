@@ -15,9 +15,9 @@ import {
   X,
 } from "lucide-react";
 import * as C from "@/components/landing/content";
-import heroImg from "@/assets/hero-mockup.jpg";
-import videoThumb from "@/assets/video-thumb.jpg";
-import collection from "@/assets/collection.jpg";
+import heroImg from "@/assets/hero-mockup.webp";
+import videoThumb from "@/assets/video-thumb.webp";
+import collection from "@/assets/collection.webp";
 import catLeggings from "@/assets/leggings.webp";
 import catTops from "@/assets/tops.webp";
 import catShorts from "@/assets/shorts.webp";
@@ -222,6 +222,8 @@ function Hero() {
           alt="Mockup da biblioteca de moldes de moda fitness em celular e tablet com peças ao redor"
           width={1280}
           height={960}
+          fetchPriority="high"
+          decoding="async"
           className="w-full rounded-3xl shadow-2xl"
         />
         <div className="absolute -bottom-6 left-1/2 flex w-[calc(100%-0.5rem)] -translate-x-1/2 flex-wrap justify-center gap-1.5">
@@ -285,6 +287,7 @@ function ProductContents() {
           src={collection}
           alt="Miniaturas das peças da coleção de moldes fitness"
           loading="lazy"
+          decoding="async"
           width={1280}
           height={896}
           className="h-48 w-full rounded-3xl object-cover md:h-72"
@@ -311,8 +314,9 @@ function Demo() {
             src={videoThumb}
             alt="Por dentro da biblioteca de moldes de moda fitness"
             loading="lazy"
+            decoding="async"
             width={720}
-            height={1280}
+            height={900}
             className="aspect-[4/5] w-full object-cover"
           />
           <span className="absolute left-4 top-4 rounded-full bg-ink px-3 py-1 text-xs font-bold text-primary">
