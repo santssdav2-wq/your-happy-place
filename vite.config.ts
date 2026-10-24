@@ -13,5 +13,5 @@ export default defineConfig({
     server: { entry: "server" },
   },
   // Deploy target: Vercel when building on Vercel, Cloudflare (Lovable default) otherwise.
-  nitro: process.env.VERCEL ? { preset: "vercel" } : undefined,
+  ...(process.env["VERCEL"] ? { nitro: { preset: "vercel" } } : {}),
 });
