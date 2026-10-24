@@ -165,13 +165,6 @@ const CheckoutButton = ({
     data-purchase-cta={purchaseCta || undefined}
     onClick={(e) => {
       e.preventDefault();
-      try {
-        if (typeof window !== "undefined" && (window as any).fbq) {
-          (window as any).fbq("track", "InitiateCheckout");
-        }
-      } catch {
-        // ignore
-      }
       if (onClick) onClick(e);
       else navigate(url);
     }}
