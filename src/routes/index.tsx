@@ -459,7 +459,7 @@ function Testimonials() {
       if (!img.complete) img.addEventListener("load", measure, { once: true });
     });
 
-    const speed = 1.8;
+    const speed = 1.0;
     const tick = () => {
       if (!draggingRef.current) {
         offsetRef.current -= speed;
