@@ -119,7 +119,30 @@ function RootShell({ children }: { children: ReactNode }) {
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '4672383009658384');fbq('track', 'PageView');`,
+            __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+// Guarda os metodos de history ANTES do pixel envolve-los, para poder restaura-los
+// e desativar o rastreamento automatico de PageView em mudancas de URL/estado.
+if(!window.__tsPushSaved){window.__tsPushSaved=true;window.__tsPush=window.history.pushState;window.__tsReplace=window.history.replaceState;}
+// Envolve fbq para deduplicar PageView (cobrem manual, automatico e UTMify).
+(function(){
+  var orig=window.fbq;
+  function wrapped(){
+    if(arguments[0]==='track' && arguments[1]==='PageView'){
+      if(window.__fbPageViewSent) return;
+      window.__fbPageViewSent=true;
+    }
+    return orig.apply(this,arguments);
+  }
+  wrapped.queue=orig.queue;
+  Object.defineProperty(wrapped,'callMethod',{get:function(){return orig.callMethod;},set:function(v){orig.callMethod=v;}});
+  ['loaded','version','push'].forEach(function(k){if(orig[k]!==undefined)wrapped[k]=orig[k];});
+  window.fbq=wrapped;
+  if(!window._fbq)window._fbq=wrapped;
+})();
+// Restaura os metodos de history apos o pixel carregar, removendo o auto-PageView.
+var __px=document.querySelector('script[src*="fbevents.js"]');
+if(__px){__px.addEventListener('load',function(){if(window.__tsPush)window.history.pushState=window.__tsPush;if(window.__tsReplace)window.history.replaceState=window.__tsReplace;});}
+if(!window.__fbPageViewSent){window.__fbPageViewSent=true;fbq('init','4672383009658384',{}, {disablePushState:true});fbq('track','PageView');}`,
           }}
         />
       </head>`

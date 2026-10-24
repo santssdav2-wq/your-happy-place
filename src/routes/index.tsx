@@ -118,15 +118,32 @@ const CtaButton = ({
   href?: string;
   className?: string;
   purchaseCta?: boolean;
-}) => (
-  <a
-    href={href}
-    data-purchase-cta={purchaseCta || undefined}
-    className={`inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-center font-display text-sm font-extrabold tracking-wide text-primary-foreground shadow-[0_10px_30px_-8px_var(--primary)] transition hover:-translate-y-0.5 sm:text-base ${className}`}
-  >
-    {children}
-  </a>
-);
+}) => {
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    // Evita mudanca de hash/URL em links internos: clicar em ancora nao deve
+    // disparar um novo PageView no Meta Pixel (conta apenas ao entrar na pagina).
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const id = href.slice(1);
+      if (!id) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      const target = document.getElementById(id);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+  return (
+    <a
+      href={href}
+      data-purchase-cta={purchaseCta || undefined}
+      onClick={handleClick}
+      className={`inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-center font-display text-sm font-extrabold tracking-wide text-primary-foreground shadow-[0_10px_30px_-8px_var(--primary)] transition hover:-translate-y-0.5 sm:text-base ${className}`}
+    >
+      {children}
+    </a>
+  );
+};
 
 const CheckoutButton = ({
   url,
@@ -148,6 +165,13 @@ const CheckoutButton = ({
     data-purchase-cta={purchaseCta || undefined}
     onClick={(e) => {
       e.preventDefault();
+      try {
+        if (typeof window !== "undefined" && (window as any).fbq) {
+          (window as any).fbq("track", "InitiateCheckout");
+        }
+      } catch {
+        // ignore
+      }
       if (onClick) onClick(e);
       else navigate(url);
     }}
@@ -775,9 +799,9 @@ function Footer() {
         {C.brand}
       </div>
       <div className="mt-3 flex flex-wrap justify-center gap-5">
-        <a href="#">Termos de Uso</a>
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Contato</a>
+        <a href="#" onClick={(e) => e.preventDefault()}>Termos de Uso</a>
+        <a href="#" onClick={(e) => e.preventDefault()}>Política de Privacidade</a>
+        <a href="#" onClick={(e) => e.preventDefault()}>Contato</a>
       </div>
       <p className="mt-3">
         © {new Date().getFullYear()} {C.brand}. Todos os direitos reservados.
