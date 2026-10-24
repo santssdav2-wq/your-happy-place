@@ -35,6 +35,10 @@ import varConjuntos from "@/assets/cat-conjuntos.webp";
 import varRegatas from "@/assets/cat-regatas.webp";
 import varFeminino from "@/assets/cat-feminino.webp";
 import varMasculino from "@/assets/cat-masculino.webp";
+import depo1 from "@/assets/testimonials/depois1.webp";
+import depo2 from "@/assets/testimonials/depois2.webp";
+import depo3 from "@/assets/testimonials/depois3.webp";
+import depo4 from "@/assets/testimonials/depois4.webp";
 
 const varImages: Record<string, string> = {
   Leggings: varLeggings,
@@ -431,39 +435,27 @@ function Categories() {
 }
 
 function Testimonials() {
+  const images = [depo1, depo2, depo3, depo4];
+  const loop = [...images, ...images];
   return (
     <Section className="bg-secondary">
       <Reveal className="text-center">
         <Eyebrow>Depoimentos</Eyebrow>
         <H2>O que dizem sobre a biblioteca</H2>
       </Reveal>
-      <div className="no-scrollbar -mx-5 mt-10 flex snap-x gap-4 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-3 md:px-0">
-        {C.testimonials.map((t) => (
-          <div
-            key={t.name}
-            className="w-72 shrink-0 snap-start rounded-3xl bg-card p-6 shadow-md sm:w-80 md:w-auto"
-          >
-            <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-accent font-display font-black text-accent-foreground">
-                {t.name[0]}
-              </div>
-              <div className="min-w-0">
-                <div className="font-bold break-words">{t.name}</div>
-                <div className="text-xs text-muted-foreground">{t.role}</div>
-              </div>
-            </div>
-            <div className="mt-4 rounded-2xl rounded-tl-sm bg-secondary p-4 text-sm leading-relaxed">
-              “{t.text}”
-            </div>
-            <div className="mt-3 flex gap-0.5 text-accent">
-              {Array(5)
-                .fill(0)
-                .map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
-                ))}
-            </div>
-          </div>
-        ))}
+      <div className="mt-10 overflow-hidden">
+        <div className="testimonials-track gap-4">
+          {loop.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt={`Depoimento ${i % images.length + 1}`}
+              className="h-72 w-auto shrink-0 rounded-2xl shadow-md md:h-96"
+              loading="lazy"
+              decoding="async"
+            />
+          ))}
+        </div>
       </div>
     </Section>
   );

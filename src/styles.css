@@ -211,3 +211,19 @@
     transition: none;
   }
 }
+
+/* Infinite testimonials marquee */
+@keyframes testimonials-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.testimonials-track {
+  display: flex;
+  width: max-content;
+  animation: testimonials-marquee 18s linear infinite;
+  will-change: transform;
+}
+.testimonials-track:hover {
+  animation-play-state: paused;
+}
+
