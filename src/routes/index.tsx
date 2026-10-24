@@ -436,21 +436,103 @@ function Categories() {
 
 function Testimonials() {
   const images = [depo1, depo2, depo3, depo4];
+  const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const offsetRef = useRef(0);
+  const draggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const startOffsetRef = useRef(0);
+  const halfWidthRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const container = containerRef.current;
+    if (!track || !container) return;
+
+    const measure = () => {
+      halfWidthRef.current = track.scrollWidth / 2;
+    };
+    measure();
+    const imgs = Array.from(track.querySelectorAll("img"));
+    imgs.forEach((img) => {
+      if (!img.complete) img.addEventListener("load", measure, { once: true });
+    });
+
+    const speed = 1.8;
+    const tick = () => {
+      if (!draggingRef.current) {
+        offsetRef.current -= speed;
+        const half = halfWidthRef.current;
+        if (half > 0 && Math.abs(offsetRef.current) >= half) {
+          offsetRef.current += half;
+        }
+        track.style.transform = `translate3d(${offsetRef.current}px,0,0)`;
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+
+    const onPointerDown = (e: PointerEvent) => {
+      draggingRef.current = true;
+      startXRef.current = e.clientX;
+      startOffsetRef.current = offsetRef.current;
+      try { track.setPointerCapture(e.pointerId); } catch {}
+      container.style.cursor = "grabbing";
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      if (!draggingRef.current) return;
+      const dx = e.clientX - startXRef.current;
+      let newOffset = startOffsetRef.current + dx;
+      const half = halfWidthRef.current;
+      if (half > 0) {
+        while (newOffset <= -half) newOffset += half;
+        while (newOffset > 0) newOffset -= half;
+      }
+      offsetRef.current = newOffset;
+      track.style.transform = `translate3d(${offsetRef.current}px,0,0)`;
+    };
+    const onPointerUp = (e: PointerEvent) => {
+      if (!draggingRef.current) return;
+      draggingRef.current = false;
+      try { track.releasePointerCapture(e.pointerId); } catch {}
+      container.style.cursor = "";
+    };
+
+    container.addEventListener("pointerdown", onPointerDown);
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onPointerUp);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      container.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+    };
+  }, []);
+
   const loop = [...images, ...images];
+
   return (
     <Section className="bg-secondary">
       <Reveal className="text-center">
         <Eyebrow>Depoimentos</Eyebrow>
         <H2>O que dizem sobre a biblioteca</H2>
       </Reveal>
-      <div className="mt-10 overflow-hidden">
-        <div className="testimonials-track gap-4">
+      <div
+        ref={containerRef}
+        className="mt-10 overflow-hidden cursor-grab select-none touch-pan-y"
+      >
+        <div ref={trackRef} className="flex gap-4 will-change-transform">
           {loop.map((src, i) => (
             <img
               key={i}
               src={src}
               alt={`Depoimento ${i % images.length + 1}`}
-              className="h-96 w-auto shrink-0 rounded-2xl shadow-md md:h-[40rem]"
+              className="h-[30rem] w-auto shrink-0 rounded-2xl shadow-md md:h-[48rem] pointer-events-none"
+              draggable={false}
               loading="lazy"
               decoding="async"
             />
