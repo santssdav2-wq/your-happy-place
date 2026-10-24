@@ -220,7 +220,7 @@
 .testimonials-track {
   display: flex;
   width: max-content;
-  animation: testimonials-marquee 18s linear infinite;
+  animation: testimonials-marquee 10s linear infinite;
   will-change: transform;
 }
 .testimonials-track:hover {
