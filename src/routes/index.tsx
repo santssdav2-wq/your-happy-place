@@ -450,7 +450,7 @@ function Testimonials() {
               key={i}
               src={src}
               alt={`Depoimento ${i % images.length + 1}`}
-              className="h-72 w-auto shrink-0 rounded-2xl shadow-md md:h-96"
+              className="h-80 w-auto shrink-0 rounded-2xl shadow-md md:h-[32rem]"
               loading="lazy"
               decoding="async"
             />
