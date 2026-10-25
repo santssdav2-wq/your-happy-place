@@ -302,9 +302,6 @@ function ProductContents() {
                   height={900}
                   className="aspect-[4/5] w-full object-cover"
                 />
-                <span className="absolute bottom-3 left-3 rounded-full bg-ink px-3 py-1 text-xs font-bold text-primary">
-                  {s.label}
-                </span>
               </div>
             ))}
           </div>
