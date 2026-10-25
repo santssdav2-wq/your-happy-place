@@ -17,7 +17,6 @@ import {
 import * as C from "@/components/landing/content";
 import heroImg from "@/assets/hero-mockup.webp";
 import videoThumb from "@/assets/video-thumb.webp";
-import collection from "@/assets/collection.webp";
 import catLeggings from "@/assets/leggings.webp";
 import catTops from "@/assets/tops.webp";
 import catShorts from "@/assets/shorts.webp";
@@ -334,17 +333,6 @@ function ProductContents() {
           </div>
         </div>
       </Reveal>
-      <Reveal className="mt-10">
-        <img
-          src={collection}
-          alt="Miniaturas das peças da coleção de moldes fitness"
-          loading="lazy"
-          decoding="async"
-          width={1280}
-          height={896}
-          className="h-48 w-full rounded-3xl object-cover md:h-72"
-        />
-      </Reveal>
     </Section>
   );
 }
@@ -424,43 +412,6 @@ function Steps() {
       <p className="mt-10 text-center font-display text-lg font-bold sm:text-xl">
         Sem precisar começar cada peça do zero.
       </p>
-    </Section>
-  );
-}
-
-function Categories() {
-  return (
-    <Section>
-      <Reveal className="text-center">
-        <Eyebrow>Variedade</Eyebrow>
-        <H2>Uma coleção para você nunca ficar sem ideias</H2>
-      </Reveal>
-      <div className="no-scrollbar -mx-5 mt-10 flex snap-x gap-4 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-4 md:px-0">
-        {C.categories.map((c) => (
-          <div
-            key={c}
-            className="relative w-56 shrink-0 snap-start overflow-hidden rounded-2xl bg-secondary md:w-auto"
-          >
-            <img
-              src={varImages[c]}
-              alt={c}
-              loading="lazy"
-              decoding="async"
-              width={720}
-              height={900}
-              className="aspect-[4/5] w-full object-cover"
-            />
-            <span className="absolute bottom-3 left-3 rounded-full bg-ink px-3 py-1 text-xs font-bold text-primary">
-              {c}
-            </span>
-          </div>
-        ))}
-      </div>
-      <div className="mt-10 text-center">
-        <CtaButton purchaseCta className="w-full max-w-md md:w-auto">
-          {C.cta}
-        </CtaButton>
-      </div>
     </Section>
   );
 }
@@ -949,10 +900,9 @@ function Index() {
     <main className="min-h-screen overflow-x-hidden bg-background font-sans text-foreground">
       <TopBar />
       <Hero />
-      <ProductContents />
       <Demo />
+      <ProductContents />
       <Steps />
-      <Categories />
       <Testimonials />
       <Bonuses />
       <Pricing onEssencial={() => setUpgradeOpen(true)} />
