@@ -70,6 +70,14 @@ const carouselSlides = [
   { label: "Mais Modelos Masculinos", img: new2 },
 ];
 
+const includedCards = [
+  { icon: Star, title: "+500 Moldes de Moda Fitness", desc: "Mais de 500 moldes reunidos em uma única biblioteca digital." },
+  { icon: Scissors, title: "Leggings e Calças", desc: "Modelos fitness para consultar e usar nos seus projetos." },
+  { icon: Scissors, title: "Tops e Croppeds", desc: "Diferentes opções de moldes de peças para a parte superior." },
+  { icon: Scissors, title: "Shorts Fitness", desc: "Moldes de shorts para seus projetos de moda fitness." },
+  { icon: Gift, title: "Conjuntos Fitness", desc: "Opções de modelos para criar conjuntos de moda fitness." },
+  { icon: Check, title: "Variedade de Modelos", desc: "Diferentes opções de peças para consultar em um só lugar." },
+];
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -284,6 +292,25 @@ function ProductContents() {
       <Reveal className="text-center">
         <Eyebrow>Incluído no acesso</Eyebrow>
         <H2>Tudo o que você recebe</H2>
+      </Reveal>
+      <Reveal className="mt-6">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          {includedCards.map((c) => {
+            const Icon = c.icon;
+            return (
+              <div
+                key={c.title}
+                className="flex items-start gap-2 rounded-lg border border-border bg-card p-3"
+              >
+                <Icon className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <div className="min-w-0">
+                  <p className="text-sm font-bold leading-tight text-foreground">{c.title}</p>
+                  <p className="mt-1 text-xs leading-snug text-muted-foreground">{c.desc}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </Reveal>
       <Reveal className="mt-10">
         <div className="overflow-hidden py-2">
