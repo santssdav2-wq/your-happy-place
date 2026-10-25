@@ -52,15 +52,15 @@ const varImages: Record<string, string> = {
 };
 
 const carouselSlides = [
-  { label: "Leggings", img: catLeggings },
-  { label: "Tops", img: catTops },
-  { label: "Shorts", img: catShorts },
-  { label: "Conjuntos", img: catConjuntos },
-  { label: "Croppeds", img: catCroppeds },
-  { label: "Regatas", img: catRegatas },
-  { label: "Modelagens Femininas", img: catFeminino },
-  { label: "Modelagens Masculinas", img: catMasculino },
-  { label: "Mais Modelos Masculinos", img: catMasculinoVariant },
+  { label: "Leggings", img: depo1 },
+  { label: "Tops", img: depo2 },
+  { label: "Shorts", img: depo3 },
+  { label: "Conjuntos", img: depo4 },
+  { label: "Croppeds", img: depo1 },
+  { label: "Regatas", img: depo2 },
+  { label: "Modelagens Femininas", img: depo3 },
+  { label: "Modelagens Masculinas", img: depo4 },
+  { label: "Mais Modelos Masculinos", img: depo1 },
 ];
 
 export const Route = createFileRoute("/")({
