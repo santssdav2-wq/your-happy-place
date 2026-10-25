@@ -350,13 +350,13 @@ function Demo() {
       </Reveal>
       <Reveal className="mx-auto mt-10 max-w-sm overflow-hidden rounded-3xl border border-border bg-card shadow-xl">
         <div className="relative">
-          <img
-            src={videoThumb}
-            alt="Por dentro da biblioteca de moldes de moda fitness"
-            loading="lazy"
-            decoding="async"
-            width={720}
-            height={900}
+          <video
+            src="/vsl.mp4"
+            poster={videoThumb}
+            controls
+            playsInline
+            preload="metadata"
+            aria-label="Por dentro da biblioteca de moldes de moda fitness"
             className="aspect-[4/5] w-full object-cover"
           />
           <span className="absolute left-4 top-4 rounded-full bg-ink px-3 py-1 text-xs font-bold text-primary">
