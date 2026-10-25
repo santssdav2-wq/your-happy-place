@@ -35,10 +35,13 @@ import varConjuntos from "@/assets/cat-conjuntos.webp";
 import varRegatas from "@/assets/cat-regatas.webp";
 import varFeminino from "@/assets/cat-feminino.webp";
 import varMasculino from "@/assets/cat-masculino.webp";
-import depo1 from "@/assets/testimonials/depois1.webp";
-import depo2 from "@/assets/testimonials/depois2.webp";
-import depo3 from "@/assets/testimonials/depois3.webp";
-import depo4 from "@/assets/testimonials/depois4.webp";
+import new1 from "@/assets/testimonials/new1.webp";
+import new2 from "@/assets/testimonials/new2.webp";
+import new3 from "@/assets/testimonials/new3.webp";
+import new4 from "@/assets/testimonials/new4.webp";
+import new5 from "@/assets/testimonials/new5.webp";
+import new6 from "@/assets/testimonials/new6.webp";
+import new7 from "@/assets/testimonials/new7.webp";
 
 const varImages: Record<string, string> = {
   Leggings: varLeggings,
@@ -52,15 +55,15 @@ const varImages: Record<string, string> = {
 };
 
 const carouselSlides = [
-  { label: "Leggings", img: depo1 },
-  { label: "Tops", img: depo2 },
-  { label: "Shorts", img: depo3 },
-  { label: "Conjuntos", img: depo4 },
-  { label: "Croppeds", img: depo1 },
-  { label: "Regatas", img: depo2 },
-  { label: "Modelagens Femininas", img: depo3 },
-  { label: "Modelagens Masculinas", img: depo4 },
-  { label: "Mais Modelos Masculinos", img: depo1 },
+  { label: "Leggings", img: new1 },
+  { label: "Tops", img: new2 },
+  { label: "Shorts", img: new3 },
+  { label: "Conjuntos", img: new4 },
+  { label: "Croppeds", img: new5 },
+  { label: "Regatas", img: new6 },
+  { label: "Modelagens Femininas", img: new7 },
+  { label: "Modelagens Masculinas", img: new1 },
+  { label: "Mais Modelos Masculinos", img: new2 },
 ];
 
 export const Route = createFileRoute("/")({
@@ -435,7 +438,7 @@ function Categories() {
 }
 
 function Testimonials() {
-  const images = [depo1, depo2, depo3, depo4];
+  const images = [new1, new2, new3, new4, new5, new6, new7];
   const trackRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const offsetRef = useRef(0);
