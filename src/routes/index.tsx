@@ -12,6 +12,7 @@ import {
   Gift,
   Star,
   ChevronDown,
+  Play,
   X,
 } from "lucide-react";
 import * as C from "@/components/landing/content";
@@ -338,6 +339,46 @@ function ProductContents() {
 }
 
 function Demo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [unlocked, setUnlocked] = useState(false);
+  const [retry, setRetry] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.loop = true;
+    video.controls = false;
+    video.play().catch(() => {
+      // Autoplay can be blocked; the preview button remains available.
+    });
+    return () => {
+      video.pause();
+    };
+  }, []);
+
+  const handleUnlock = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+    setRetry(false);
+    video.pause();
+    video.currentTime = 0;
+    video.muted = false;
+    video.loop = false;
+    video.controls = true;
+    setUnlocked(true);
+    try {
+      await video.play();
+    } catch {
+      setUnlocked(false);
+      setRetry(true);
+      video.muted = true;
+      video.loop = true;
+      video.controls = false;
+      video.play().catch(() => {});
+    }
+  };
+
   return (
     <Section className="bg-secondary">
       <Reveal className="text-center">
@@ -351,36 +392,49 @@ function Demo() {
       <Reveal className="mx-auto mt-10 max-w-sm overflow-hidden rounded-3xl border border-border bg-card shadow-xl">
         <div className="relative">
           <video
+            ref={videoRef}
             src="/vsl.mp4"
             poster={videoThumb}
-            controls
             playsInline
             preload="metadata"
+            width={1080}
+            height={1920}
             aria-label="Por dentro da biblioteca de moldes de moda fitness"
-            className="aspect-[4/5] w-full object-cover"
+            className="h-auto w-full"
+            muted={!unlocked}
+            loop={!unlocked}
+            controls={unlocked}
+            autoPlay
           />
-          <span className="absolute left-4 top-4 rounded-full bg-ink px-3 py-1 text-xs font-bold text-primary">
-            Por dentro da biblioteca
-          </span>
-        </div>
-        <div className="p-5">
-          <div className="flex flex-wrap gap-2">
-            {C.categories.map((c) => (
-              <span key={c} className="rounded-full bg-secondary px-3 py-1.5 text-xs font-bold">
-                {c}
+          {!unlocked && (
+            <button
+              type="button"
+              onClick={handleUnlock}
+              className="absolute inset-0 flex items-center justify-center bg-ink/30"
+              aria-label="Toque para assistir com áudio"
+            >
+              <span className="flex flex-col items-center gap-3 rounded-2xl bg-ink/70 px-6 py-4 text-center shadow-2xl ring-1 ring-primary/40 animate-pulse">
+                <Play className="h-10 w-10 text-primary" fill="currentColor" />
+                <span className="font-display text-sm font-extrabold tracking-wide text-white sm:text-base">
+                  ▶ TOQUE PARA ASSISTIR COM <span className="text-primary">ÁUDIO</span>
+                </span>
               </span>
-            ))}
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Cada categoria reúne diferentes modelos, para você variar sem precisar criar cada
-            modelagem do zero.
-          </p>
+            </button>
+          )}
+          {retry && !unlocked && (
+            <button
+              type="button"
+              onClick={handleUnlock}
+              className="absolute inset-x-4 bottom-4 rounded-full bg-primary px-4 py-3 text-center font-display text-sm font-extrabold text-primary-foreground shadow-lg"
+            >
+              Tentar novamente com áudio
+            </button>
+          )}
         </div>
       </Reveal>
     </Section>
   );
 }
-
 function Steps() {
   const icons = [MousePointerClick, Download, Printer, Scissors];
   return (
