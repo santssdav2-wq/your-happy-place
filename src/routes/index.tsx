@@ -42,6 +42,10 @@ import new4 from "@/assets/testimonials/new4.webp";
 import new5 from "@/assets/testimonials/new5.webp";
 import new6 from "@/assets/testimonials/new6.webp";
 import new7 from "@/assets/testimonials/new7.webp";
+import depo1 from "@/assets/testimonials/depois1.webp";
+import depo2 from "@/assets/testimonials/depois2.webp";
+import depo3 from "@/assets/testimonials/depois3.webp";
+import depo4 from "@/assets/testimonials/depois4.webp";
 
 const varImages: Record<string, string> = {
   Leggings: varLeggings,
@@ -438,7 +442,7 @@ function Categories() {
 }
 
 function Testimonials() {
-  const images = [new1, new2, new3, new4, new5, new6, new7];
+  const images = [depo1, depo2, depo3, depo4];
   const trackRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const offsetRef = useRef(0);

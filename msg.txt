@@ -1,0 +1,1 @@
+Restore testimonials images from separate folder
